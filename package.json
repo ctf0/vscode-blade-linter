@@ -1,7 +1,7 @@
 {
     "name": "blade-linter",
     "displayName": "Blade Linter",
-    "description": "blade simple linter",
+    "description": "blade simple linter via regex",
     "version": "0.0.1",
     "publisher": "ctf0",
     "repository": "https://github.com/ctf0/vscode-blade-linter",
@@ -19,7 +19,7 @@
         "commands": [
             {
                 "command": "bl.lint",
-                "title": "BL: Format"
+                "title": "Blade Linter: Lint"
             }
         ],
         "menus": {
@@ -29,10 +29,57 @@
                     "when": "editorLangId == blade"
                 }
             ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "Blade Linter",
+            "properties": {
+                "blade_linter.drb": {
+                    "type": "array",
+                    "default": [
+                        "if",
+                        "elseif",
+                        "push",
+                        "for",
+                        "foreach"
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "description": "add space before directive round brace"
+                },
+                "blade_linter.dnl": {
+                    "type": "array",
+                    "default": [
+                        "endphp"
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "description": "add new line after directive ending"
+                },
+                "blade_linter.sws": {
+                    "type": "array",
+                    "default": [
+                        "||",
+                        "&&",
+                        "??",
+                        "?:",
+                        "=>"
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "description": "surround with space"
+                }
+            }
         }
-    },
-    "scripts": {
-        "test": "node ./test/runTest.js"
     },
     "devDependencies": {
         "@types/glob": "^7.1.1",
@@ -45,5 +92,7 @@
         "typescript": "^3.6.4",
         "vscode-test": "^1.2.2"
     },
-    "dependencies": {}
+    "dependencies": {
+        "escape-string-regexp": "^4.0.0"
+    }
 }
