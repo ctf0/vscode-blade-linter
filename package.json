@@ -2,14 +2,18 @@
     "name": "blade-linter",
     "displayName": "Blade Linter",
     "description": "blade simple linter via regex",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "ctf0",
     "repository": "https://github.com/ctf0/vscode-blade-linter",
     "engines": {
         "vscode": "^1.41.0"
     },
     "categories": [
-        "Other"
+        "Formatters"
+    ],
+    "keywords": [
+        "blade",
+        "Laravel"
     ],
     "activationEvents": [
         "onCommand:bl.lint"
@@ -34,7 +38,7 @@
             "type": "object",
             "title": "Blade Linter",
             "properties": {
-                "blade_linter.drb": {
+                "bladeLinter.spaceBeforeDirectiveCondition": {
                     "type": "array",
                     "default": [
                         "if",
@@ -50,9 +54,13 @@
                     "uniqueItems": true,
                     "description": "add space before directive round brace"
                 },
-                "blade_linter.dnl": {
+                "bladeLinter.newLineAfterDirectiveEnd": {
                     "type": "array",
                     "default": [
+                        "endif",
+                        "endpush",
+                        "endfor",
+                        "endforeach",
                         "endphp"
                     ],
                     "items": {
@@ -62,7 +70,7 @@
                     "uniqueItems": true,
                     "description": "add new line after directive ending"
                 },
-                "blade_linter.sws": {
+                "bladeLinter.surroundWithSpace": {
                     "type": "array",
                     "default": [
                         "||",
@@ -76,7 +84,37 @@
                     },
                     "minItems": 1,
                     "uniqueItems": true,
-                    "description": "surround with space"
+                    "description": "surround with space any of"
+                },
+                "bladeLinter.ternaryOperator": {
+                    "type": "array",
+                    "default": [
+                        "[",
+                        "(",
+                        "$",
+                        "'",
+                        "\""
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "description": "surround ternary operator with space when followed by any of"
+                },
+                "bladeLinter.spaceAfterComma": {
+                    "type": "array",
+                    "default": [
+                        "[",
+                        "(",
+                        "$"
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "description": "add space after comma when followed by any of"
                 }
             }
         }

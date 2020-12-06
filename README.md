@@ -12,21 +12,25 @@ simple linters rules for blade via regex rules.
     > ex.`['one','two',]`
 
 - add space before directive round brace `@..(`
-    > ex.`@if (), @push ()`
+    > ex.`@if (), @push (), etc..`
 
 - add new line after directive end
-    > ex.`@endphp`
+    > ex.`@endphp, @endif, etc..`
 
 - add one space to each side of curly braces
-    > ex.`{!! !!}, {{ }}, {{-- --}}`
+    > ex.`{!! $one !!}, {{ $one }}, {{-- $one --}}`
 
-- add space after `,` when followed by `0-9` / `[` / `$`
+- add space after `,`
     > ex.`, ['one', $two]`
 
 - surround `||` / `&&` / `??` / `=>` / `?:` with one space
     > ex.`$one || $two, $one && $two, $one ?? $two, ['k' => 'v'], $one ?: $two`
 
+- surround `..?..:..` with one space
+    > ex.`isset($one) ? 'yes' : 'no'`
+
 ## Notes
 
-- rules works as expected for my own needs, if u faced any issues plz open a ticket.
-- this is not a formatter, this is basically a search and replace.
+- rules works as expected for my own needs, if u've any issues plz open a ticket.
+- this is more of a search and replace, not a global formatter.
+- u can test with [the demo file](demo/index.blade.php)
