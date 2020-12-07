@@ -8,6 +8,7 @@ let dnl = ''
 let sws = ''
 let to = ''
 let sac = ''
+let sdws = ''
 
 async function activate(context) {
     await readConfig()
@@ -35,7 +36,7 @@ async function activate(context) {
                 // '{{ | {!!' not followed by '\n'
                 .replace(new RegExp(/({({|!!)(--)?)([\t ]+)?(?!(-+)?\n)/, 'g'), '$1 ')
                 // '}} | !!}' not preceded by '\n'
-                .replace(new RegExp(/(?<!\n((\t|-| )+)?)((--)?(!!|})})/, 'g'), ' $3')
+                .replace(new RegExp(/(?<!(\s|-))([\t ]+)?((--)?(!!|})})/, 'g'), ' $3')
                 // space after ','
                 .replace(new RegExp(`(['"])?,([\t ]+)?([0-9]|${sac})`, 'g'), '$1, $3')
                 // surround with spaces
@@ -46,6 +47,8 @@ async function activate(context) {
                 // space after `? / :' when on new line
                 .replace(new RegExp(`^([\t ]+)(\\?)([\t ]+)?([0-9]|${to})`, 'gm'), '$1$2 $4')
                 .replace(new RegExp(`^([\t ]+)(:)([\t ]+)?([0-9]|${to})`, 'gm'), '$1$2 $4')
+                // surround dot with space '$var.something`
+                .replace(new RegExp(`([\t ]+)?\\.([\t ]+)?([0-9]|${sdws})`, 'g'), ' . $3')
 
             await editor.edit(
                 (edit) => edit.replace(
@@ -65,6 +68,7 @@ async function readConfig() {
     sws = prepareArray(config.surroundWithSpace)
     to = prepareArray(config.ternaryOperator)
     sac = prepareArray(config.spaceAfterComma)
+    sdws = prepareArray(config.surroundDotWithSpace)
 }
 
 function prepareArray(arr) {

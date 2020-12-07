@@ -2,7 +2,7 @@
     "name": "blade-linter",
     "displayName": "Blade Linter",
     "description": "blade simple linter via regex",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "publisher": "ctf0",
     "repository": "https://github.com/ctf0/vscode-blade-linter",
     "engines": {
@@ -61,6 +61,7 @@
                         "endpush",
                         "endfor",
                         "endforeach",
+                        "else",
                         "endphp"
                     ],
                     "items": {
@@ -115,6 +116,22 @@
                     "minItems": 1,
                     "uniqueItems": true,
                     "description": "add space after comma when followed by any of"
+                },
+                "bladeLinter.surroundDotWithSpace": {
+                    "type": "array",
+                    "default": [
+                        "\"",
+                        "'",
+                        "$",
+                        "(",
+                        "["
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "description": "surround a dot with space when followed by any of"
                 }
             }
         }

@@ -26,10 +26,12 @@
     $five = $one?:$two;
     $six = $one??$two;
     $svn = $one?'yes':$two;
-    $svn = $one ? 'yes' : $two;
+    $svn = $one ?               'yes' : $two;
     $svn = $one
     ?'yes'
     :$two;
+
+    $one.'|'.$two
 @endphp
 <hr>
 
