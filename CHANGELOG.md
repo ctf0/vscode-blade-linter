@@ -18,3 +18,12 @@
 
 - add support for `.` ex.`$one.'|'.$two`
 - update demo file
+
+## 0.0.5
+
+- remove dot surround
+
+## 0.0.6
+
+- undo remove dot surround & add new config to ignore files instead `bladeLinter.ignoreFiles`
+- remove min items required for configuration so u can disable any if u want

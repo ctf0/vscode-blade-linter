@@ -2,7 +2,7 @@
     "name": "blade-linter",
     "displayName": "Blade Linter",
     "description": "blade simple linter via regex",
-    "version": "0.0.4",
+    "version": "0.0.6",
     "publisher": "ctf0",
     "repository": "https://github.com/ctf0/vscode-blade-linter",
     "engines": {
@@ -50,9 +50,8 @@
                     "items": {
                         "type": "string"
                     },
-                    "minItems": 1,
                     "uniqueItems": true,
-                    "description": "add space before directive round brace"
+                    "description": "add space between directive & ("
                 },
                 "bladeLinter.newLineAfterDirectiveEnd": {
                     "type": "array",
@@ -67,7 +66,6 @@
                     "items": {
                         "type": "string"
                     },
-                    "minItems": 1,
                     "uniqueItems": true,
                     "description": "add new line after directive ending"
                 },
@@ -83,9 +81,8 @@
                     "items": {
                         "type": "string"
                     },
-                    "minItems": 1,
                     "uniqueItems": true,
-                    "description": "surround with space any of"
+                    "description": "surround any of with one space"
                 },
                 "bladeLinter.ternaryOperator": {
                     "type": "array",
@@ -99,9 +96,8 @@
                     "items": {
                         "type": "string"
                     },
-                    "minItems": 1,
                     "uniqueItems": true,
-                    "description": "surround ternary operator with space when followed by any of"
+                    "description": "surround ternary operator with one space when followed by any of"
                 },
                 "bladeLinter.spaceAfterComma": {
                     "type": "array",
@@ -113,7 +109,6 @@
                     "items": {
                         "type": "string"
                     },
-                    "minItems": 1,
                     "uniqueItems": true,
                     "description": "add space after comma when followed by any of"
                 },
@@ -129,9 +124,19 @@
                     "items": {
                         "type": "string"
                     },
-                    "minItems": 1,
                     "uniqueItems": true,
                     "description": "surround a dot with space when followed by any of"
+                },
+                "bladeLinter.ignoreFiles": {
+                    "type": "array",
+                    "default": [
+                        "layout.blade.php"
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true,
+                    "description": "dont run the linter on this files that has any of this names"
                 }
             }
         }
