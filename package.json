@@ -136,7 +136,7 @@
                         "type": "string"
                     },
                     "uniqueItems": true,
-                    "description": "dont run the linter on this files that has any of this names"
+                    "description": "dont run the linter on files with any of this names"
                 }
             }
         }
