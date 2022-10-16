@@ -16,6 +16,7 @@
 @endif
 @php
     $one = 'test';
+    $one = 'test     test';
     $two = [
         'one',
         'two',

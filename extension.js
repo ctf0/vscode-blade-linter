@@ -1,15 +1,15 @@
-const vscode = require('vscode')
+const vscode             = require('vscode')
 const escapeStringRegexp = require('escape-string-regexp')
-const PACKAGE_NAME = 'bladeLinter'
+const PACKAGE_NAME       = 'bladeLinter'
 
-let config = {}
+let config  = {}
 let ignored = []
-let drb = ''
-let dnl = ''
-let sws = ''
-let to = ''
-let sac = ''
-let sdws = ''
+let drb     = ''
+let dnl     = ''
+let sws     = ''
+let to      = ''
+let sac     = ''
+let sdws    = ''
 
 async function activate(context) {
     await readConfig()
@@ -25,7 +25,7 @@ async function activate(context) {
 
         if (editor) {
             let {document} = editor
-            let txt = document.getText()
+            let txt        = document.getText()
 
             if (!checkForExclusions(document.fileName)) {
                 txt = txt
@@ -36,23 +36,23 @@ async function activate(context) {
                     // '}} | !!}' not preceded by '\n'
                     .replace(new RegExp(/(?<!(\s|-))([\t ]+)?((--)?(!!|})})/, 'g'), ' $3')
 
+                // add space before '@..('
                 if (drb) {
-                    // add space before '@..('
                     txt = txt.replace(new RegExp(`@(${drb})\\(`, 'g'), '@$1 (')
                 }
 
+                // add new line after '@..'
                 if (dnl) {
-                    // add new line after '@..'
                     txt = txt.replace(new RegExp(`@(${dnl})\n(.)`, 'g'), '@$1\n\n$2')
                 }
 
+                // space after ','
                 if (sac) {
-                    // space after ','
                     txt = txt.replace(new RegExp(`(['"])?,([\t ]+)?([0-9]|${sac})`, 'g'), '$1, $3')
                 }
 
+                // surround with spaces
                 if (sws) {
-                    // surround with spaces
                     txt = txt.replace(new RegExp(`([\t ]+)?(${sws})([\t ]+)?(?!\n)`, '\g'), ' $2 ')
                 }
 
@@ -71,6 +71,9 @@ async function activate(context) {
                     txt = txt.replace(new RegExp(`([\t ]+)?\\.([\t ]+)?([0-9]|${sdws})`, 'g'), ' . $3')
                 }
 
+                // remove extra spaces between text
+                txt = txt.replace(new RegExp('([\'"\w]) {2,}(\w)', 'g'), '$1 $2')
+
                 await editor.edit(
                     (edit) => edit.replace(
                         new vscode.Range(0, 0, document.lineCount, 0),
@@ -84,13 +87,13 @@ async function activate(context) {
 }
 
 async function readConfig() {
-    config = await vscode.workspace.getConfiguration(PACKAGE_NAME)
-    drb = prepareRegex(config.spaceBeforeDirectiveCondition)
-    dnl = prepareRegex(config.newLineAfterDirectiveEnd)
-    sws = prepareRegex(config.surroundWithSpace)
-    to = prepareRegex(config.ternaryOperator)
-    sac = prepareRegex(config.spaceAfterComma)
-    sdws = prepareRegex(config.surroundDotWithSpace)
+    config  = await vscode.workspace.getConfiguration(PACKAGE_NAME)
+    drb     = prepareRegex(config.spaceBeforeDirectiveCondition)
+    dnl     = prepareRegex(config.newLineAfterDirectiveEnd)
+    sws     = prepareRegex(config.surroundWithSpace)
+    to      = prepareRegex(config.ternaryOperator)
+    sac     = prepareRegex(config.spaceAfterComma)
+    sdws    = prepareRegex(config.surroundDotWithSpace)
     ignored = config.ignoreFiles
 }
 
